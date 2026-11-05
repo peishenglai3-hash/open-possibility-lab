@@ -6,8 +6,8 @@
     "frozen_week02_base": "a8dbc0f"
   },
   "file_count": 142,
-  "total_bytes": 827663,
-  "aggregate_sha256": "3303100c24f3107857c35c411b405896cc2fd1dce17ce62d9f3c86f18a18b9f3",
+  "total_bytes": 827688,
+  "aggregate_sha256": "dd2b6071ea7537a41cd2428505db4309bcfee8ea3f9b5befdce5b4678ae34754",
   "files": [
     {
       "path": ".env.example",
@@ -61,8 +61,8 @@
     },
     {
       "path": "docs/PROVENANCE.md",
-      "bytes": 2271,
-      "sha256": "dda81a7eb5c957e8178c8890c797a0b0b2af85d6150558f831c4c08996216ddd"
+      "bytes": 2303,
+      "sha256": "4d1b2e7f5b568cd65cb7594ad8495595bd331607dd911e22cb9f54b5a08d9a16"
     },
     {
       "path": "docs/RESEARCH_STATUS.md",
@@ -256,8 +256,8 @@
     },
     {
       "path": "FREEZE.md",
-      "bytes": 2679,
-      "sha256": "7b6f2d86e0a8a4bf114d3b13801b2fdaa6d7ba3cf1f424d3c9a54105d8541afe"
+      "bytes": 2672,
+      "sha256": "2dfd199110b52992ddf9ab009beb31346600315dd1381b6ee93208d7100b92df"
     },
     {
       "path": "LICENSE",

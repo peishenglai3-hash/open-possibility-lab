@@ -3,7 +3,7 @@
 **Snapshot:** Open Possibility Lab 0.3.0
 **Date:** 2026-11-05
 **Private source:** main HEAD a77f209; frozen Week02 base a8dbc0f
-**Public history:** a new single initial commit; the private history is not exported.
+**Public history:** a new public history; the private history is not exported.
 
 ## What this snapshot is
 

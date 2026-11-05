@@ -10,7 +10,7 @@ This public repository is a curated snapshot of a private research workspace.
 | Frozen Week02 base (P0 patches) | a8dbc0f |
 | Public snapshot date | 2026-11-05 |
 | Snapshot type | curated source + tests + synthetic slice + new documentation |
-| Public history | new single initial commit; not the private commit history |
+| Public history | a new public history (bootstrap README + snapshot commit); not the private commit history |
 
 The private history is not published because it contains internal review notes, owner documents,
 raw logs with host paths, and material whose rights were not cleared for redistribution.
