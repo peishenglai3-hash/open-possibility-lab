@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this research prototype, cite the repository and the frozen snapshot."
+title: "Open Possibility Lab"
+type: software
+version: "0.3.0"
+date-released: "2026-11-05"
+license: MIT
+repository-code: "https://github.com/peishenglai3-hash/open-possibility-lab"
+url: "https://github.com/peishenglai3-hash/open-possibility-lab"
+authors:
+  - family-names: "Lai"
+    given-names: "Peisheng"
+abstract: "A provenance-first, dissent-preserving workspace for research collaboration. Research prototype; synthetic evidence only."
+keywords:
+  - provenance
+  - research collaboration
+  - human-AI interaction
+  - epistemic humility
+  - open source

@@ -1,0 +1,107 @@
+{
+  "case_id": "C03",
+  "title": "Dissent is a first-class retrieval target",
+  "query": "What objection must remain visible before adopting the shared memory index?",
+  "expected": {
+    "required_event_ids": ["evt_c03_1", "evt_c03_2", "evt_c03_3"],
+    "dissent_event_ids": ["evt_c03_2"],
+    "allowed_event_ids": ["evt_c03_1", "evt_c03_2", "evt_c03_3"]
+  },
+  "events": [
+    {
+      "id": "evt_c03_1",
+      "timestamp": "2026-09-15T09:00:00Z",
+      "actor_id": "rui",
+      "actor_type": "human",
+      "source_type": "design_note",
+      "source_locator": "memory/proposal",
+      "raw_content": "The shared memory index could reduce duplicated searches across the two projects.",
+      "project_hints": ["alpha", "beta"],
+      "problem_hints": ["problem:c03_shared_memory"],
+      "metadata": {
+        "roles": ["direct"],
+        "curated": {
+          "problems": [
+            {
+              "id": "problem:c03_shared_memory",
+              "title": "Decide whether to adopt a shared memory index",
+              "status": "ACTIVE",
+              "opened_at": "2026-09-15T09:00:00Z",
+              "scope": {
+                "label": "projects:alpha-beta",
+                "project_ids": ["alpha", "beta"],
+                "problem_ids": ["problem:c03_shared_memory"]
+              },
+              "source_event_ids": ["evt_c03_1"]
+            }
+          ],
+          "claims": [
+            {
+              "id": "claim:c03_benefit",
+              "proposition": "A shared memory index may reduce duplicated searches.",
+              "type": "HYPOTHESIS",
+              "source_event_ids": ["evt_c03_1"],
+              "problem_ids": ["problem:c03_shared_memory"],
+              "status": "HYPOTHESIZED",
+              "confidence": 0.6
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "evt_c03_2",
+      "timestamp": "2026-09-15T11:00:00Z",
+      "actor_id": "sara",
+      "actor_type": "human",
+      "source_type": "review_note",
+      "source_locator": "memory/privacy-objection",
+      "raw_content": "Objection and veto: private notes must not be merged into a shared index without provenance, scope, and an explicit opt-out path.",
+      "project_hints": ["alpha", "beta"],
+      "problem_hints": ["problem:c03_shared_memory"],
+      "metadata": {
+        "roles": ["dissent", "veto", "privacy"],
+        "curated": {
+          "claims": [
+            {
+              "id": "claim:c03_privacy_veto",
+              "proposition": "Private notes require provenance, scope, and an explicit opt-out path before sharing.",
+              "type": "DISSENT",
+              "source_event_ids": ["evt_c03_2"],
+              "problem_ids": ["problem:c03_shared_memory"],
+              "status": "CONTESTED",
+              "confidence": 0.98
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "evt_c03_3",
+      "timestamp": "2026-09-16T15:00:00Z",
+      "actor_id": "rui",
+      "actor_type": "human",
+      "source_type": "pilot_log",
+      "source_locator": "memory/pilot",
+      "raw_content": "The pilot kept private notes separate and recorded the objection in the review log; adoption remains conditional.",
+      "project_hints": ["alpha", "beta"],
+      "problem_hints": ["problem:c03_shared_memory"],
+      "metadata": {
+        "roles": ["outcome", "unresolved"],
+        "curated": {
+          "claims": [
+            {
+              "id": "claim:c03_pilot",
+              "proposition": "The pilot kept private notes separate and adoption remains conditional.",
+              "type": "OUTCOME",
+              "source_event_ids": ["evt_c03_3"],
+              "problem_ids": ["problem:c03_shared_memory"],
+              "status": "TESTED",
+              "confidence": 0.9
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

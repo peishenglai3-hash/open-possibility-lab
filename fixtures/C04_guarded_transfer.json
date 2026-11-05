@@ -1,0 +1,143 @@
+{
+  "case_id": "C04",
+  "title": "Similarity is not transfer",
+  "query": "Can the alpha caching policy be transferred to the beta real-time telemetry project?",
+  "expected": {
+    "required_event_ids": ["evt_c04_1", "evt_c04_2", "evt_c04_3"],
+    "allowed_event_ids": ["evt_c04_1", "evt_c04_2", "evt_c04_3"],
+    "transfer_decision": "REJECT"
+  },
+  "transfer": {
+    "source_case_id": "policy:alpha-cache",
+    "target_case_id": "policy:beta-telemetry",
+    "shared_conditions": [
+      {
+        "key": "bounded_latency",
+        "source_value": "under-100ms",
+        "target_value": "under-100ms",
+        "state": "SATISFIED",
+        "required": true,
+        "note": "Both projects care about bounded latency."
+      }
+    ],
+    "changed_conditions": [
+      {
+        "key": "traffic_shape",
+        "source_value": "batch",
+        "target_value": "real-time burst",
+        "state": "CHANGED",
+        "required": true,
+        "note": "The target has a different runtime traffic shape."
+      }
+    ],
+    "required_conditions": [
+      {
+        "key": "cache_invalidation",
+        "source_value": "manual",
+        "target_value": "event-driven",
+        "state": "MISSING",
+        "required": true,
+        "note": "Target invalidation semantics are not verified."
+      }
+    ],
+    "forbidden_conditions": [
+      {
+        "key": "real_time_safety_requirement",
+        "source_value": "absent",
+        "target_value": "mandatory",
+        "state": "FORBIDDEN",
+        "required": true,
+        "note": "The source policy has no real-time safety evidence."
+      }
+    ],
+    "evidence_refs": [
+      {
+        "source_event_id": "evt_c04_1",
+        "source_locator": "alpha/cache-policy",
+        "evidence_kind": "support",
+        "strength": "medium",
+        "note": "Source policy evidence."
+      },
+      {
+        "source_event_id": "evt_c04_2",
+        "source_locator": "beta/requirements",
+        "evidence_kind": "contradict",
+        "strength": "hard",
+        "note": "Target requirement changes the conditions."
+      }
+    ]
+  },
+  "events": [
+    {
+      "id": "evt_c04_1",
+      "timestamp": "2026-09-17T09:00:00Z",
+      "actor_id": "alpha-team",
+      "actor_type": "human",
+      "source_type": "policy_note",
+      "source_locator": "alpha/cache-policy",
+      "raw_content": "Alpha uses a cache policy for batch jobs with manual invalidation and bounded latency under 100ms.",
+      "project_hints": ["alpha"],
+      "problem_hints": ["problem:c04_transfer_policy"],
+      "metadata": {
+        "roles": ["transfer", "direct"],
+        "curated": {
+          "problems": [
+            {
+              "id": "problem:c04_transfer_policy",
+              "title": "Determine whether the alpha policy can transfer to beta",
+              "status": "ACTIVE",
+              "opened_at": "2026-09-17T09:00:00Z",
+              "scope": {
+                "label": "projects:alpha-beta",
+                "project_ids": ["alpha", "beta"],
+                "problem_ids": ["problem:c04_transfer_policy"]
+              },
+              "source_event_ids": ["evt_c04_1"]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "evt_c04_2",
+      "timestamp": "2026-09-17T10:00:00Z",
+      "actor_id": "beta-team",
+      "actor_type": "human",
+      "source_type": "requirements_note",
+      "source_locator": "beta/requirements",
+      "raw_content": "Beta telemetry is real-time burst traffic and requires event-driven invalidation plus safety evidence; the alpha policy is not directly applicable.",
+      "project_hints": ["beta"],
+      "problem_hints": ["problem:c04_transfer_policy"],
+      "metadata": {
+        "roles": ["transfer_failure", "contradiction", "failure"],
+        "curated": {
+          "claims": [
+            {
+              "id": "claim:c04_changed_scope",
+              "proposition": "Beta's real-time burst and safety requirements block direct transfer of the alpha policy.",
+              "type": "CONSTRAINT",
+              "source_event_ids": ["evt_c04_2"],
+              "problem_ids": ["problem:c04_transfer_policy"],
+              "status": "TESTED",
+              "confidence": 0.96
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "evt_c04_3",
+      "timestamp": "2026-09-17T13:00:00Z",
+      "actor_id": "lin",
+      "actor_type": "human",
+      "source_type": "review_note",
+      "source_locator": "transfer/review",
+      "raw_content": "Review outcome: hold the transfer and collect target-specific invalidation and real-time safety evidence before considering a new candidate.",
+      "project_hints": ["alpha", "beta"],
+      "problem_hints": ["problem:c04_transfer_policy"],
+      "metadata": {
+        "roles": ["transfer_failure", "outcome", "unresolved"]
+      }
+    }
+  ]
+}

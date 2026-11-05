@@ -1,0 +1,30 @@
+[runtime]
+data_dir = ".team-soul"
+context_budget_tokens = 6000
+rrf_k = 60
+candidate_top_n = 30
+
+[provider]
+kind = "mock"
+model = "mock-v0.1"
+base_url = ""
+api_key_env = "TEAM_SOUL_API_KEY"
+temperature = 0.0
+max_output_tokens = 1800
+
+[embedding]
+enabled = false
+model = ""
+
+[closure]
+require_scope = true
+require_provenance = true
+require_reopen_condition = true
+team_level_min_actor_coverage = 2
+hard_veto_blocks = true
+
+[privacy]
+commit_private_corpus = false
+log_selected_snippets = false
+redact_secrets = true
+

@@ -1,0 +1,15 @@
+[server]
+address = "127.0.0.1"
+port = 8503
+headless = true
+enableCORS = true
+enableXsrfProtection = true
+allowedHosts = ["localhost", "127.0.0.1", "localhost:8503", "127.0.0.1:8503"]
+
+[browser]
+gatherUsageStats = false
+serverAddress = "127.0.0.1"
+
+[client]
+showErrorDetails = "type"
+toolbarMode = "minimal"

@@ -1,0 +1,151 @@
+{
+  "case_id": "C02",
+  "title": "Similarity must not become team agreement",
+  "query": "Can a high retrieval similarity score be treated as team agreement?",
+  "expected": {
+    "required_event_ids": ["evt_c02_1", "evt_c02_2", "evt_c02_3"],
+    "dissent_event_ids": ["evt_c02_2"],
+    "allowed_event_ids": ["evt_c02_1", "evt_c02_2", "evt_c02_3"],
+    "closure_status": "NO_CLOSURE"
+  },
+  "closure_proposal": {
+    "problem_id": "problem:c02_similarity_agreement",
+    "proposition": "The team agrees whenever retrieval similarity is high.",
+    "level": "TEAM",
+    "scope": {
+      "label": "team:research",
+      "project_ids": ["alpha", "beta"],
+      "problem_ids": ["problem:c02_similarity_agreement"]
+    },
+    "supporting_evidence": [
+      {
+        "source_event_id": "evt_c02_1",
+        "source_locator": "model/proposal",
+        "evidence_kind": "support",
+        "strength": "weak",
+        "note": "Model proposal only."
+      }
+    ],
+    "validation_evidence": [
+      {
+        "source_event_id": "evt_c02_3",
+        "source_locator": "meeting/decision",
+        "evidence_kind": "context",
+        "strength": "weak",
+        "note": "This event explicitly withholds closure."
+      }
+    ],
+    "unresolved_refs": [
+      {
+        "source_event_id": "evt_c02_2",
+        "source_locator": "review/dissent",
+        "evidence_kind": "dissent",
+        "strength": "hard",
+        "note": "The agreement claim remains contested."
+      }
+    ],
+    "reopen_conditions": [
+      {
+        "key": "new_human_vote",
+        "description": "Reopen if a new human decision changes the scope."
+      }
+    ]
+  },
+  "events": [
+    {
+      "id": "evt_c02_1",
+      "timestamp": "2026-09-13T10:00:00Z",
+      "actor_id": "model-a",
+      "actor_type": "model",
+      "source_type": "model_note",
+      "source_locator": "model/proposal",
+      "raw_content": "The retrieval score is high, so the system proposed that the team already agrees with the indexed statement.",
+      "project_hints": ["alpha"],
+      "problem_hints": ["problem:c02_similarity_agreement"],
+      "metadata": {
+        "roles": ["direct", "theory"],
+        "curated": {
+          "problems": [
+            {
+              "id": "problem:c02_similarity_agreement",
+              "title": "Determine whether similarity can evidence team agreement",
+              "status": "ACTIVE",
+              "opened_at": "2026-09-13T10:00:00Z",
+              "scope": {
+                "label": "team:research",
+                "project_ids": ["alpha", "beta"],
+                "problem_ids": ["problem:c02_similarity_agreement"]
+              },
+              "source_event_ids": ["evt_c02_1"]
+            }
+          ],
+          "claims": [
+            {
+              "id": "claim:c02_overclaim",
+              "proposition": "High similarity proves team agreement.",
+              "type": "HYPOTHESIS",
+              "source_event_ids": ["evt_c02_1"],
+              "problem_ids": ["problem:c02_similarity_agreement"],
+              "status": "HYPOTHESIZED",
+              "confidence": 0.35
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "evt_c02_2",
+      "timestamp": "2026-09-13T12:00:00Z",
+      "actor_id": "mei",
+      "actor_type": "human",
+      "source_type": "review_note",
+      "source_locator": "review/dissent",
+      "raw_content": "Dissent: similarity is only a candidate retrieval signal; it cannot establish agreement, shared scope, or a human decision.",
+      "project_hints": ["alpha", "beta"],
+      "problem_hints": ["problem:c02_similarity_agreement"],
+      "metadata": {
+        "roles": ["dissent", "veto", "contradiction"],
+        "curated": {
+          "claims": [
+            {
+              "id": "claim:c02_dissent",
+              "proposition": "Similarity cannot establish agreement, shared scope, or a human decision.",
+              "type": "DISSENT",
+              "source_event_ids": ["evt_c02_2"],
+              "problem_ids": ["problem:c02_similarity_agreement"],
+              "status": "CONTESTED",
+              "confidence": 0.95
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "evt_c02_3",
+      "timestamp": "2026-09-14T09:00:00Z",
+      "actor_id": "lin",
+      "actor_type": "human",
+      "source_type": "meeting_note",
+      "source_locator": "meeting/decision",
+      "raw_content": "The review records no team-level closure; a scoped human decision and validation experiment are still required.",
+      "project_hints": ["alpha", "beta"],
+      "problem_hints": ["problem:c02_similarity_agreement"],
+      "metadata": {
+        "roles": ["unresolved", "closure"],
+        "curated": {
+          "claims": [
+            {
+              "id": "claim:c02_no_closure",
+              "proposition": "No team-level closure is justified yet.",
+              "type": "CONSTRAINT",
+              "source_event_ids": ["evt_c02_3"],
+              "problem_ids": ["problem:c02_similarity_agreement"],
+              "status": "SUSPENDED",
+              "confidence": 0.95
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "case_id": "C05",
+  "title": "The system must not close its own benefit claim",
+  "query": "Does Team Soul itself improve team reasoning enough to close the question?",
+  "expected": {
+    "required_event_ids": ["evt_c05_1", "evt_c05_2"],
+    "allowed_event_ids": ["evt_c05_1", "evt_c05_2"],
+    "closure_status": "NO_CLOSURE"
+  },
+  "closure_proposal": {
+    "problem_id": "problem:c05_self_benefit",
+    "proposition": "Team Soul improves team reasoning and can be treated as validated.",
+    "action": "Declare the Team Soul architecture successful for team reasoning.",
+    "level": "TEAM",
+    "scope": {
+      "label": "team:research",
+      "project_ids": ["alpha", "beta"],
+      "problem_ids": ["problem:c05_self_benefit"]
+    },
+    "supporting_evidence": [
+      {
+        "source_event_id": "evt_c05_1",
+        "source_locator": "benchmark/internal",
+        "evidence_kind": "support",
+        "strength": "weak",
+        "note": "Internal synthetic benchmark only."
+      }
+    ],
+    "reopen_conditions": [
+      {
+        "key": "independent_team_outcome",
+        "description": "Reopen when independent team outcome evidence arrives."
+      }
+    ]
+  },
+  "events": [
+    {
+      "id": "evt_c05_1",
+      "timestamp": "2026-09-18T09:00:00Z",
+      "actor_id": "team-soul-runtime",
+      "actor_type": "model",
+      "source_type": "synthetic_eval",
+      "source_locator": "benchmark/internal",
+      "raw_content": "The internal fixture benchmark shows improved evidence recall for the Team Soul retrieval arm, but it does not measure real team reasoning outcomes.",
+      "project_hints": ["alpha", "beta"],
+      "problem_hints": ["problem:c05_self_benefit"],
+      "metadata": {
+        "roles": ["direct", "unresolved"],
+        "curated": {
+          "problems": [
+            {
+              "id": "problem:c05_self_benefit",
+              "title": "Determine whether Team Soul improves team reasoning",
+              "status": "ACTIVE",
+              "opened_at": "2026-09-18T09:00:00Z",
+              "scope": {
+                "label": "team:research",
+                "project_ids": ["alpha", "beta"],
+                "problem_ids": ["problem:c05_self_benefit"]
+              },
+              "source_event_ids": ["evt_c05_1"]
+            }
+          ],
+          "claims": [
+            {
+              "id": "claim:c05_internal_gain",
+              "proposition": "The synthetic benchmark improves evidence recall but does not measure team outcomes.",
+              "type": "OUTCOME",
+              "source_event_ids": ["evt_c05_1"],
+              "problem_ids": ["problem:c05_self_benefit"],
+              "status": "TESTED",
+              "confidence": 0.9
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "evt_c05_2",
+      "timestamp": "2026-09-18T11:00:00Z",
+      "actor_id": "research-lead",
+      "actor_type": "human",
+      "source_type": "review_note",
+      "source_locator": "review/exit-condition",
+      "raw_content": "No closure: independent human-use evidence, a declared scope, and an outcome measure are still missing.",
+      "project_hints": ["alpha", "beta"],
+      "problem_hints": ["problem:c05_self_benefit"],
+      "metadata": {
+        "roles": ["unresolved", "dissent", "closure"],
+        "curated": {
+          "claims": [
+            {
+              "id": "claim:c05_no_closure",
+              "proposition": "The Team Soul benefit question remains open because independent human-use evidence is missing.",
+              "type": "CONSTRAINT",
+              "source_event_ids": ["evt_c05_2"],
+              "problem_ids": ["problem:c05_self_benefit"],
+              "status": "SUSPENDED",
+              "confidence": 0.98
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

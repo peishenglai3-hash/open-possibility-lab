@@ -1,0 +1,143 @@
+{
+  "case_id": "C01",
+  "title": "Historical revision must remain visible",
+  "query": "What is the current operational batch-size recommendation, and what changed from the historical choice?",
+  "expected": {
+    "required_event_ids": ["evt_c01_1", "evt_c01_2", "evt_c01_3"],
+    "temporal_event_ids": ["evt_c01_1", "evt_c01_2", "evt_c01_3"],
+    "allowed_event_ids": ["evt_c01_1", "evt_c01_2", "evt_c01_3"],
+    "closure_status": "ACTIVE"
+  },
+  "closure_proposal": {
+    "problem_id": "problem:c01_batch_size",
+    "proposition": "Use batch size 32 for the current alpha training pipeline.",
+    "action": "Set the alpha pipeline default to 32 and reopen after a failed validation run.",
+    "level": "PROJECT",
+    "scope": {
+      "label": "project:alpha",
+      "project_ids": ["alpha"],
+      "problem_ids": ["problem:c01_batch_size"]
+    },
+    "supporting_evidence": [
+      {
+        "source_event_id": "evt_c01_3",
+        "source_locator": "lab/alpha/run-32",
+        "evidence_kind": "support",
+        "strength": "medium",
+        "note": "The replacement run completed without the earlier failure."
+      }
+    ],
+    "validation_evidence": [
+      {
+        "source_event_id": "evt_c01_3",
+        "source_locator": "lab/alpha/run-32",
+        "evidence_kind": "outcome",
+        "strength": "hard",
+        "note": "Validation outcome recorded by the experiment log."
+      }
+    ],
+    "reopen_conditions": [
+      {
+        "key": "new_failed_run",
+        "description": "Reopen if a new alpha run fails under the batch-size-32 setting."
+      }
+    ]
+  },
+  "events": [
+    {
+      "id": "evt_c01_1",
+      "timestamp": "2026-09-10T09:00:00Z",
+      "actor_id": "alice",
+      "actor_type": "human",
+      "source_type": "lab_note",
+      "source_locator": "lab/alpha/run-64",
+      "raw_content": "The alpha pipeline initially selected batch size 64 because the first smoke run was fast enough.",
+      "project_hints": ["alpha"],
+      "problem_hints": ["problem:c01_batch_size"],
+      "metadata": {
+        "roles": ["historical", "direct"],
+        "curated": {
+          "problems": [
+            {
+              "id": "problem:c01_batch_size",
+              "title": "Choose a stable batch size for the alpha training pipeline",
+              "status": "ACTIVE",
+              "opened_at": "2026-09-10T09:00:00Z",
+              "scope": {
+                "label": "project:alpha",
+                "project_ids": ["alpha"],
+                "problem_ids": ["problem:c01_batch_size"]
+              },
+              "source_event_ids": ["evt_c01_1"]
+            }
+          ],
+          "claims": [
+            {
+              "id": "claim:c01_initial",
+              "proposition": "Batch size 64 was the initial alpha choice.",
+              "type": "OBSERVATION",
+              "source_event_ids": ["evt_c01_1"],
+              "problem_ids": ["problem:c01_batch_size"],
+              "status": "OBSERVED",
+              "confidence": 0.9
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "evt_c01_2",
+      "timestamp": "2026-09-11T14:00:00Z",
+      "actor_id": "bob",
+      "actor_type": "human",
+      "source_type": "experiment_log",
+      "source_locator": "lab/alpha/run-64-failure",
+      "raw_content": "The batch-size-64 run failed under the longer sequence workload, so the historical choice no longer holds for this scope.",
+      "project_hints": ["alpha"],
+      "problem_hints": ["problem:c01_batch_size"],
+      "metadata": {
+        "roles": ["failure", "revision", "outcome"],
+        "curated": {
+          "claims": [
+            {
+              "id": "claim:c01_failure",
+              "proposition": "The batch-size-64 setting failed under the longer sequence workload.",
+              "type": "OUTCOME",
+              "source_event_ids": ["evt_c01_2"],
+              "problem_ids": ["problem:c01_batch_size"],
+              "status": "TESTED",
+              "confidence": 0.95
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "evt_c01_3",
+      "timestamp": "2026-09-12T16:30:00Z",
+      "actor_id": "alice",
+      "actor_type": "human",
+      "source_type": "experiment_log",
+      "source_locator": "lab/alpha/run-32",
+      "raw_content": "The batch-size-32 replacement run passed the longer sequence workload; use 32 provisionally for alpha.",
+      "project_hints": ["alpha"],
+      "problem_hints": ["problem:c01_batch_size"],
+      "metadata": {
+        "roles": ["revision", "validation", "closure"],
+        "curated": {
+          "claims": [
+            {
+              "id": "claim:c01_current",
+              "proposition": "Batch size 32 is the current provisional alpha recommendation.",
+              "type": "DECISION",
+              "source_event_ids": ["evt_c01_3"],
+              "problem_ids": ["problem:c01_batch_size"],
+              "status": "PROVISIONALLY_ACCEPTED",
+              "confidence": 0.85
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

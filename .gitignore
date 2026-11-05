@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+*.pem
+*.key
+
+# Local runtime data and private material
+.team-soul/
+data/
+private/
+receipts/
+experiment_receipts/
+learning_records/
+policy_diff/
+policy_diffs/
+results_*/
+e2_candidates*/
+eval_results_*.json
+*.sqlite3
+*.db
+
+# Logs and OS files
+*.log
+.DS_Store
+Thumbs.db

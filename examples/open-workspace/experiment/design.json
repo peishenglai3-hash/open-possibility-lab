@@ -1,0 +1,49 @@
+{
+  "experiment": "W03-G3-01",
+  "status": "pre-registered before run",
+  "tasks": [
+    {
+      "id": "T1",
+      "label": "decision with dissent",
+      "oracle_status": "CONDITIONAL",
+      "must_mention": ["s3", "s6", "s8"],
+      "must_not_mention": ["s5", "s7"]
+    },
+    {
+      "id": "T2",
+      "label": "insufficient evidence",
+      "oracle_status": "HOLD",
+      "must_mention": ["s6"],
+      "must_not_mention": ["s5", "s7"]
+    },
+    {
+      "id": "T3",
+      "label": "wrong premise",
+      "oracle_status": "REJECTED_PREMISE",
+      "must_mention": ["s6", "s3"],
+      "must_not_mention": ["s5", "s7"]
+    }
+  ],
+  "modes": {
+    "BASELINE": {"steps_to_answer": 1, "panels_shown": 0, "expansions_available": 0, "forced": false},
+    "OPTIONAL": {"steps_to_answer": 1, "panels_shown": 0, "expansions_available": 7, "forced": false},
+    "FORCED": {"steps_to_answer": 3, "panels_shown": 7, "expansions_available": 7, "forced": true}
+  },
+  "metrics": [
+    "answer_correct",
+    "citations_checkable",
+    "steps_to_answer",
+    "panels_shown",
+    "expansions_available",
+    "forced_overhead",
+    "scope_contamination",
+    "refusal_available",
+    "export_complete",
+    "answer_hash"
+  ],
+  "notes": [
+    "BASELINE and OPTIONAL use the same deterministic composer; only presentation differs.",
+    "FORCED simulates a design that requires all panels before the answer (negative control).",
+    "No model, no network, no user study; this is an E1 structural comparison."
+  ]
+}
